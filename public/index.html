@@ -4,9 +4,21 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="shortcut icon" href="%PUBLIC_URL%/favicon.ico">
+    <link rel="manifest" href="%PUBLIC_URL%/manifest.json">
     <title>Text2Points</title>
   </head>
   <body>
     <div id="root"></div>
+     <script type="text/javascript">
+      if ('serviceWorker' in navigator) {
+        window.addEventListener('load', function() {
+          navigator.serviceWorker.register('./service-worker.js').then(function(reg) {
+            console.log("Yay!");
+          }).catch(function(err) {
+            console.log("Boo non va!");
+          });
+        });
+      }
+    </script>
   </body>
 </html>
