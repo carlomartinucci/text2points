@@ -1,19 +1,23 @@
-import React, { Component } from 'react';
+import React, { Component } from 'react'
 import Input from './Input'
-import './App.css';
+import './App.css'
 
 class App extends Component {
   constructor(props) {
     super(props);
     this.setText = this.setText.bind(this);
     this.setPoint = this.setPoint.bind(this);
+    const value = localStorage.value ? localStorage.value : "Scrivi del testo e ti verrà convertito in punti. :)"
+    const lang = localStorage.lang ? localStorage.lang : "TEXT"
     this.state = {
-      lang: "TEXT",
-      value: "Scrivi del testo e ti verrà convertito in punti. :)"
+      lang,
+      value
     }
   }
 
   setText(value) {
+    localStorage.value = value
+    localStorage.lang = "TEXT"
     this.setState({
       lang: "TEXT",
       value
@@ -21,6 +25,8 @@ class App extends Component {
   }
 
   setPoint(value) {
+    localStorage.value = value
+    localStorage.lang = "POINT"
     this.setState({
       lang: "POINT",
       value
@@ -44,11 +50,11 @@ class App extends Component {
   }
 
   textToPoint(textValue) {
-    return textValue.split('').map((s) => s.charCodeAt(0)).map(this.dec2bin).map(this.bin2point).join(' ')
+    return textValue.split('').map(s => s.charCodeAt(0)).map(this.dec2bin).map(this.bin2point).join(' ')
   }
 
   pointToText(pointValue) {
-    return pointValue.split(' ').map(this.point2bin).map((b) => parseInt(b, 2)).map((c) => String.fromCharCode(c)).join('')
+    return pointValue.split(' ').map(this.point2bin).map(b => parseInt(b, 2)).map(c => String.fromCharCode(c)).join('')
   }
 
   render() {
@@ -63,8 +69,8 @@ class App extends Component {
         pointValue = this.state.value
         break
       default:
-      textValue = this.state.value
-      pointValue = this.state.value
+        textValue = this.state.value
+        pointValue = this.state.value
     }
 
     return (
